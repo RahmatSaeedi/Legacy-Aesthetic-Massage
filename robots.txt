@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Allow: /images/
+Sitemap: http://www.yourwebsite.com/sitemap.xml
