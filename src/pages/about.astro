@@ -1,0 +1,156 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import SchemaBreadcrumb from '../components/seo/SchemaBreadcrumb.astro';
+import { business } from '../data/business';
+
+import ownerImg from '../assets/images/Taz_Saeedi.png';
+import studioImg from '../assets/images/Massage_4.jpg';
+
+const title = "About Legacy Aesthetic — Meet Taz, Edmonton's Men's Spa";
+const description =
+  "Meet Taz Saeedi, the licensed aesthetician behind Legacy Aesthetic Men's Spa in north Edmonton. A warm, private studio for men's massage, skin care, and grooming. Call or text 587-712-0719.";
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/about/' },
+];
+
+const values = [
+  { title: 'Privacy first', text: 'Every treatment is one-on-one in a private room, with professional draping throughout — so you can fully relax.' },
+  { title: 'Tailored to you', text: "Nothing here is one-size-fits-all. Pressure, products, and focus are matched to your body and your goals." },
+  { title: 'Quality care', text: 'Skilled, attentive technique and quality products — the difference is something you feel the moment you leave.' },
+  { title: 'No rush', text: 'A calm, unhurried pace. You get the full time you booked and genuine, focused attention.' },
+];
+---
+
+<BaseLayout title={title} description={description} image={studioImg.src}>
+  <SchemaBreadcrumb slot="head" items={crumbs} />
+
+  <PageHeader
+    eyebrow="About"
+    title="A men's spa built on care"
+    subtitle="Warm, professional, and discreet — Legacy Aesthetic is a private studio in north Edmonton dedicated to helping men relax, recharge, and look their best."
+    breadcrumbs={crumbs}
+  />
+
+  <!-- MEET TAZ -->
+  <section class="section">
+    <div class="container about-intro">
+      <div class="about-intro__photo">
+        <Image
+          src={ownerImg}
+          alt="Taz Saeedi, licensed aesthetician and founder of Legacy Aesthetic Men's Spa in Edmonton"
+          widths={[260, 380, 520]}
+          sizes="(max-width: 800px) 70vw, 340px"
+          class="about-intro__img"
+          loading="eager"
+        />
+      </div>
+      <div class="about-intro__copy">
+        <p class="eyebrow">Meet your therapist</p>
+        <h2>Hi, I'm Taz Saeedi</h2>
+        <hr class="rule" />
+        <p>
+          I'm a licensed aesthetician and the founder of Legacy Aesthetic. I created
+          this men's spa around a simple belief: men deserve a comfortable, judgment-free
+          place to relax and take care of themselves — body and skin.
+        </p>
+        <p>
+          Over the years I've found that the best results come from genuine attention,
+          not a rushed routine. So every visit is hands-on and tailored to you, whether
+          you're here to ease deep muscle tension, refresh tired skin, sharpen up your
+          grooming, or simply switch off for an hour.
+        </p>
+        <p>
+          You'll find me in my private studio in north Edmonton — close to Anthony
+          Henday Drive and 97 Street — open every day from 9 AM to 9 PM.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section section--sand">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow">What guides every visit</p>
+        <h2>The Legacy Aesthetic difference</h2>
+        <hr class="rule" />
+      </div>
+      <div class="values-grid">
+        {
+          values.map((v) => (
+            <div class="value-card">
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- STUDIO -->
+  <section class="section">
+    <div class="container studio">
+      <div class="studio__media">
+        <Image
+          src={studioImg}
+          alt="The calm, private massage studio at Legacy Aesthetic in north Edmonton"
+          widths={[480, 720, 960]}
+          sizes="(max-width: 900px) 92vw, 480px"
+          class="studio__img"
+          loading="lazy"
+        />
+      </div>
+      <div class="studio__copy">
+        <p class="eyebrow">The studio</p>
+        <h2>A calm, private space — just for you</h2>
+        <hr class="rule" />
+        <p>
+          Legacy Aesthetic is a private home-based studio, not a busy walk-in salon.
+          That means no crowds, no waiting room, and no rushing — just a quiet, clean,
+          comfortable room set up entirely around your appointment.
+        </p>
+        <p>
+          It's the kind of place that's easy to come back to. Many clients make it part
+          of their monthly routine — a standing hour that's theirs to unwind, reset, and
+          take care of themselves.
+        </p>
+        <a href="/services/" class="btn btn--primary">Explore the services</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner />
+</BaseLayout>
+
+<style>
+  .about-intro { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 3rem; align-items: center; }
+  .about-intro__photo { display: flex; justify-content: center; }
+  .about-intro__img {
+    width: 100%; max-width: 340px; border-radius: var(--radius-lg);
+    background: linear-gradient(160deg, var(--c-sand), rgba(176, 130, 74, 0.08));
+  }
+  @media (max-width: 800px) { .about-intro { grid-template-columns: 1fr; text-align: center; } .about-intro .rule { margin-inline: auto; } .about-intro__img { max-width: 240px; } }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.4rem;
+    margin-top: 2.5rem;
+  }
+  .value-card {
+    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.5rem 1.4rem; box-shadow: var(--shadow-sm);
+  }
+  .value-card h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
+  .value-card p { font-size: 0.94rem; }
+
+  .studio { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .studio__img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); aspect-ratio: 4 / 3; object-fit: cover; }
+  @media (max-width: 900px) { .studio { grid-template-columns: 1fr; gap: 1.8rem; } }
+</style>

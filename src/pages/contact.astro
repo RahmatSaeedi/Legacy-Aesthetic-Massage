@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import SchemaBreadcrumb from '../components/seo/SchemaBreadcrumb.astro';
+import { business, telHref, smsHref } from '../data/business';
+
+const title = "Contact & Directions — Legacy Aesthetic Men's Spa, North Edmonton";
+const description =
+  "Book Legacy Aesthetic men's spa in north Edmonton. Call or text 587-712-0719, open 9am–9pm daily. Near Anthony Henday Drive & 97 Street. Get directions and hours.";
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Contact', href: '/contact/' },
+];
+const a = business.address;
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaBreadcrumb slot="head" items={crumbs} />
+
+  <PageHeader
+    eyebrow="Contact"
+    title="Book your visit"
+    subtitle="The easiest way to book is to call or text. We'll confirm your service and time — same-day appointments are often available."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <div class="contact-block">
+          <h2>Call or text</h2>
+          <a href={telHref} class="contact-phone">{business.phoneDisplay}</a>
+          <div class="btn-row">
+            <a href={telHref} class="btn btn--primary">Call now</a>
+            <a href={smsHref} class="btn btn--ghost">Text us</a>
+          </div>
+        </div>
+
+        <div class="contact-block">
+          <h2>Hours</h2>
+          <p><strong>{business.hours.days}</strong></p>
+          <p>{business.hours.display}</p>
+          <p class="contact-muted">Same-day appointments often available.</p>
+        </div>
+
+        <div class="contact-block">
+          <h2>Location</h2>
+          <address>
+            {a.street}<br />
+            {a.locality}, {a.regionName} {a.postalCode}
+          </address>
+          <p class="contact-muted">{a.note}</p>
+          <a href={business.mapsUrl} class="btn btn--ghost" rel="noopener" target="_blank">Get directions</a>
+        </div>
+
+        <div class="contact-block">
+          <h2>Areas we serve</h2>
+          <p>
+            Proudly serving men across {business.areaServed.slice(0, -1).join(', ')} and {business.areaServed.at(-1)}.
+          </p>
+        </div>
+      </div>
+
+      <div class="contact-map">
+        <iframe
+          src={business.mapEmbedUrl}
+          title={`Map showing the location of ${business.name} in north Edmonton`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3rem; align-items: start; }
+  .contact-info { display: grid; gap: 2rem; }
+  .contact-block h2 { font-size: var(--fs-600); margin-bottom: 0.6rem; }
+  .contact-block address { font-style: normal; color: var(--text-muted); }
+  .contact-block p { margin-bottom: 0.3rem; }
+  .contact-muted { color: var(--c-stone); font-size: 0.9rem; }
+  .contact-phone {
+    display: inline-block; font-family: var(--font-serif); font-size: 2.2rem;
+    color: var(--accent-ink); text-decoration: none; margin-bottom: 0.9rem; line-height: 1;
+  }
+  .contact-phone:hover { color: var(--c-bronze); }
+  .contact-block .btn-row { margin-top: 0.4rem; }
+
+  .contact-map {
+    border-radius: var(--radius-lg); overflow: hidden;
+    border: 1px solid var(--border); box-shadow: var(--shadow-md);
+    min-height: 420px; height: 100%;
+  }
+  .contact-map iframe { width: 100%; height: 100%; min-height: 420px; border: 0; display: block; }
+
+  @media (max-width: 880px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-map { min-height: 320px; }
+    .contact-map iframe { min-height: 320px; }
+  }
+</style>

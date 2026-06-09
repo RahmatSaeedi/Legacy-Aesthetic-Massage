@@ -1,0 +1,59 @@
+---
+/**
+ * Per-page <head> SEO: title, description, canonical, Open Graph + Twitter.
+ * Rendered by BaseLayout. Pages provide complete, unique titles & descriptions.
+ */
+import { business } from '../../data/business';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Root-relative path or absolute URL for the social share image. */
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  /** Optional canonical path override (defaults to the current URL). */
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  image = '/og-image.jpg',
+  type = 'website',
+  noindex = false,
+  canonical,
+} = Astro.props;
+
+const site = Astro.site ?? new URL(business.url);
+const canonicalURL = new URL(canonical ?? Astro.url.pathname, site).href;
+const imageURL = new URL(image, site).href;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={business.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_CA" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
+
+<!-- Local geo hints -->
+<meta name="geo.region" content="CA-AB" />
+<meta name="geo.placename" content="Edmonton" />
+<meta name="geo.position" content={`${business.geo.lat};${business.geo.lng}`} />
+<meta name="ICBM" content={`${business.geo.lat}, ${business.geo.lng}`} />

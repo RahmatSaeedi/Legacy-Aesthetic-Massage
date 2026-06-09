@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import { business, telHref, smsHref } from '../data/business';
+import { servicesByOrder } from '../data/services';
+import logo from '../assets/images/signature.png';
+
+const year = 2026;
+const a = business.address;
+---
+
+<footer class="site-footer">
+  <div class="container footer__grid">
+    <div class="footer__brand">
+      <Image src={logo} alt={business.name} class="footer__logo" />
+      <p class="footer__about">
+        A private men's spa in north Edmonton — massage, skin care, and grooming
+        in a warm, professional, and discreet setting.
+      </p>
+      <div class="footer__social">
+        <a href={business.social.facebook} rel="noopener" target="_blank" aria-label="Legacy Aesthetic on Facebook">Facebook</a>
+        <a href={business.social.yelp} rel="noopener" target="_blank" aria-label="Legacy Aesthetic on Yelp">Yelp</a>
+      </div>
+    </div>
+
+    <nav class="footer__col" aria-label="Services">
+      <h2 class="footer__heading">Services</h2>
+      <ul>
+        {servicesByOrder.map((s) => (
+          <li><a href={`/services/${s.slug}/`}>{s.navLabel}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="footer__col" aria-label="Explore">
+      <h2 class="footer__heading">Explore</h2>
+      <ul>
+        <li><a href="/services/">All Services</a></li>
+        <li><a href="/about/">About Taz</a></li>
+        <li><a href="/reviews/">Reviews</a></li>
+        <li><a href="/blog/">Journal</a></li>
+        <li><a href="/contact/">Contact & Directions</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__col footer__contact">
+      <h2 class="footer__heading">Visit & Book</h2>
+      <address>
+        <p>{a.street}<br />{a.locality}, {a.region} {a.postalCode}</p>
+        <p class="footer__muted">{a.note}</p>
+        <p>
+          <a href={telHref} class="footer__phone">{business.phoneDisplay}</a><br />
+          <span class="footer__muted">{business.hours.days}: {business.hours.opens === '09:00' ? '9 AM' : business.hours.opens} – 9 PM</span>
+        </p>
+      </address>
+      <div class="footer__cta">
+        <a href={telHref} class="btn btn--primary">Call now</a>
+        <a href={smsHref} class="btn btn--outline-light">Text us</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bar">
+    <div class="container footer__bar-inner">
+      <p>© {year} {business.legalName}. All rights reserved.</p>
+      <p class="footer__muted">Men's massage &amp; spa · {a.locality}, {a.regionName}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--c-espresso);
+    color: rgba(250, 246, 240, 0.8);
+    padding-top: clamp(3rem, 2rem + 4vw, 5rem);
+  }
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1.4fr;
+    gap: 2.5rem;
+    padding-bottom: 3rem;
+  }
+  .footer__logo {
+    height: 36px;
+    width: auto;
+    margin-bottom: 1rem;
+    /* Invert the black script wordmark to cream on the dark footer. */
+    filter: brightness(0) invert(1);
+    opacity: 0.92;
+  }
+  .footer__about { color: rgba(250, 246, 240, 0.7); font-size: 0.95rem; max-width: 30ch; }
+  .footer__social { display: flex; gap: 1rem; margin-top: 1.1rem; }
+  .footer__social a { color: var(--c-bronze-soft); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+  .footer__social a:hover { color: #fff; }
+
+  .footer__heading {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-bronze-soft);
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+  .footer__col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.55rem; }
+  .footer__col a { color: rgba(250, 246, 240, 0.78); text-decoration: none; font-size: 0.93rem; }
+  .footer__col a:hover { color: #fff; }
+
+  .footer__contact address { font-style: normal; }
+  .footer__contact p { color: rgba(250, 246, 240, 0.78); margin-bottom: 0.7rem; font-size: 0.93rem; }
+  .footer__muted { color: rgba(250, 246, 240, 0.5) !important; font-size: 0.85rem; }
+  .footer__phone { color: var(--c-bronze-soft); font-weight: 700; font-size: 1.1rem; text-decoration: none; }
+  .footer__phone:hover { color: #fff; }
+  .footer__cta { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+
+  .footer__bar {
+    border-top: 1px solid rgba(250, 246, 240, 0.12);
+    padding-block: 1.3rem;
+  }
+  .footer__bar-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .footer__bar p { color: rgba(250, 246, 240, 0.55); font-size: 0.82rem; margin: 0; }
+
+  @media (max-width: 860px) {
+    .footer__grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer__brand { grid-column: 1 / -1; }
+  }
+  @media (max-width: 540px) {
+    .footer__grid { grid-template-columns: 1fr; }
+    .footer__bar-inner { flex-direction: column; gap: 0.3rem; }
+  }
+</style>

@@ -1,0 +1,22 @@
+{
+  "name": "legacy-massage",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Legacy Aesthetic Men's Spa — Edmonton. Astro static site.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "assets": "node scripts/generate-assets.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource/cormorant-garamond": "^5.2.11",
+    "astro": "^5.2.5",
+    "sharp": "^0.33.5"
+  }
+}

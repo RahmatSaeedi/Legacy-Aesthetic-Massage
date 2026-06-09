@@ -1,0 +1,100 @@
+---
+/**
+ * Sitewide LocalBusiness (DaySpa / HealthAndBeautyBusiness) JSON-LD.
+ * Rendered once per page from BaseLayout. Other schema (Service, FAQ,
+ * Breadcrumb) reference this node via its @id.
+ */
+import { business } from '../../data/business';
+import { services } from '../../data/services';
+import { aggregateRating } from '../../data/testimonials';
+
+const site = Astro.site ?? new URL(business.url);
+const businessId = new URL('#business', site).href;
+const logoURL = new URL('/logo.png', site).href;
+const imageURL = new URL('/og-image.jpg', site).href;
+
+const makesOffer = services.map((s) => {
+  const num = s.price.match(/\d+/);
+  const offer: Record<string, unknown> = {
+    '@type': 'Offer',
+    itemOffered: { '@type': 'Service', name: s.name },
+    url: new URL(`/services/${s.slug}/`, site).href,
+  };
+  if (num) {
+    offer.price = num[0];
+    offer.priceCurrency = business.currency;
+  }
+  return offer;
+});
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': ['HealthAndBeautyBusiness', 'DaySpa'],
+  '@id': businessId,
+  name: business.name,
+  alternateName: business.shortName,
+  description: business.description,
+  url: `${business.url}/`,
+  telephone: business.phoneE164,
+  image: imageURL,
+  logo: logoURL,
+  priceRange: business.priceRange,
+  currenciesAccepted: business.currency,
+  paymentAccepted: 'Cash, Debit, Credit Card, e-Transfer',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.locality,
+    addressRegion: business.address.region,
+    postalCode: business.address.postalCode,
+    addressCountry: business.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: business.geo.lat,
+    longitude: business.geo.lng,
+  },
+  hasMap: business.mapsUrl,
+  areaServed: business.areaServed.map((name) => ({ '@type': 'City', name })),
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+      ],
+      opens: business.hours.opens,
+      closes: business.hours.closes,
+    },
+  ],
+  sameAs: [business.social.facebook, business.social.yelp].filter(Boolean),
+  founder: {
+    '@type': 'Person',
+    name: business.owner.name,
+    jobTitle: business.owner.role,
+  },
+  knowsAbout: [
+    'Massage therapy',
+    'Deep tissue massage',
+    'Body exfoliation',
+    "Men's facials",
+    'Male waxing',
+    'Cupping therapy',
+    "Men's grooming",
+  ],
+  makesOffer,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: aggregateRating.ratingValue,
+    reviewCount: aggregateRating.reviewCount,
+    bestRating: aggregateRating.best,
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
+import { serviceCategories, servicesInCategory } from '../../data/services';
+
+const title = "Men's Spa Services in North Edmonton — Massage, Skin & Grooming | Legacy Aesthetic";
+const description =
+  "Explore Legacy Aesthetic's men's services in north Edmonton: relaxation & deep-tissue massage, full-body exfoliation, facials, waxing, cupping, acne care, dark-patch treatment and haircuts. Call or text 587-712-0719.";
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services/' },
+];
+
+const categoryBlurbs: Record<string, string> = {
+  Massage: 'Relaxation and therapeutic bodywork to release tension and reset.',
+  'Skin & Body': 'Treatments that renew, clarify, and care for your skin head to toe.',
+  Grooming: 'Sharp, clean grooming to keep you looking your best.',
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaBreadcrumb slot="head" items={crumbs} />
+
+  <PageHeader
+    eyebrow="Our Services"
+    title="Services for men"
+    subtitle="Massage, skin & body care, and grooming — choose one treatment or combine a few into your own reset. Same-day appointments are often available, 9 AM to 9 PM every day."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section">
+    <div class="container">
+      {
+        serviceCategories.map((cat) => (
+          <div class="cat-block">
+            <div class="cat-head">
+              <h2 class="cat-title">{cat}</h2>
+              <p class="cat-blurb">{categoryBlurbs[cat]}</p>
+            </div>
+            <div class="services-grid">
+              {servicesInCategory(cat).map((s) => (
+                <ServiceCard service={s} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBanner />
+</BaseLayout>
+
+<style>
+  .cat-block + .cat-block { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
+  .cat-head { margin-bottom: 1.6rem; }
+  .cat-title { font-size: var(--fs-700); }
+  .cat-blurb { color: var(--text-muted); margin-top: 0.3rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: 1.6rem;
+  }
+</style>

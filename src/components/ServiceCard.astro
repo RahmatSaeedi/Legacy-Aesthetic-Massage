@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+import type { Service } from '../data/services';
+
+interface Props {
+  service: Service;
+  /** Eager-load above-the-fold cards to protect LCP. */
+  eager?: boolean;
+}
+const { service, eager = false } = Astro.props;
+---
+
+<a href={`/services/${service.slug}/`} class="service-card">
+  <div class="service-card__media">
+    <Image
+      src={service.image}
+      alt={service.imageAlt}
+      widths={[320, 480, 640]}
+      sizes="(max-width: 700px) 92vw, 360px"
+      class="service-card__img"
+      loading={eager ? 'eager' : 'lazy'}
+    />
+    <span class="service-card__cat">{service.category}</span>
+  </div>
+  <div class="service-card__body">
+    <h3 class="service-card__title">{service.name}</h3>
+    <p class="service-card__summary">{service.summary}</p>
+    <div class="service-card__foot">
+      <span class="service-card__price">
+        {service.price}{service.priceNote ? <small> {service.priceNote}</small> : null}
+      </span>
+      <span class="service-card__more">Learn more →</span>
+    </div>
+  </div>
+</a>
+
+<style>
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    height: 100%;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--c-bronze-soft);
+  }
+  .service-card__media { position: relative; aspect-ratio: 3 / 2; overflow: hidden; }
+  .service-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+  .service-card:hover .service-card__img { transform: scale(1.05); }
+  .service-card__cat {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.7rem;
+    background: rgba(42, 33, 27, 0.78);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(2px);
+  }
+  .service-card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.25rem 1.3rem 1.35rem;
+  }
+  .service-card__title { font-size: 1.4rem; margin-bottom: 0.4rem; }
+  .service-card__summary { font-size: 0.93rem; color: var(--text-muted); flex: 1; }
+  .service-card__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.1rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--border);
+  }
+  .service-card__price { font-weight: 700; color: var(--accent-ink); }
+  .service-card__price small { font-weight: 500; color: var(--text-muted); font-size: 0.78rem; }
+  .service-card__more { font-size: 0.85rem; font-weight: 600; color: var(--c-charcoal); }
+  .service-card:hover .service-card__more { color: var(--accent-ink); }
+</style>

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business, telHref } from '../data/business';
+
+const title = 'Page not found — Legacy Aesthetic';
+const description = 'Sorry, we couldn’t find that page. Explore our men’s spa services or get in touch.';
+---
+
+<BaseLayout title={title} description={description} noindex={true}>
+  <section class="section notfound">
+    <div class="container container-narrow">
+      <p class="eyebrow">Error 404</p>
+      <h1>We couldn't find that page</h1>
+      <p class="lead">
+        The page you're looking for may have moved. Let's get you back on track —
+        explore our services or reach out and we'll be glad to help.
+      </p>
+      <div class="btn-row">
+        <a href="/" class="btn btn--primary">Back to home</a>
+        <a href="/services/" class="btn btn--ghost">View services</a>
+        <a href={telHref} class="btn btn--ghost">Call {business.phoneDisplay}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound { text-align: center; padding-block: clamp(3rem, 2rem + 6vw, 6rem); }
+  .notfound .btn-row { justify-content: center; margin-top: 1.6rem; }
+</style>
