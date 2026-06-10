@@ -8,6 +8,9 @@ export const business = {
   name: "Legacy Aesthetic Men's Spa",
   shortName: 'Legacy Aesthetic',
   legalName: "Legacy Aesthetic Men's Spa",
+  // The name this business is listed under on Google & review sites. Surfaced
+  // as schema alternateName so Google connects the website to those listings.
+  googleName: 'Massage and More Legacy Aesthetics',
   tagline: 'Relax & Unwind',
   // Used as the default meta description seed and hero subtext.
   description:

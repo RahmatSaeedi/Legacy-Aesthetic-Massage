@@ -4,7 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import SchemaBreadcrumb from '../components/seo/SchemaBreadcrumb.astro';
-import { business } from '../data/business';
+import { business, telHref, smsHref } from '../data/business';
 
 import ownerImg from '../assets/images/Taz_Saeedi.png';
 import studioImg from '../assets/images/Massage_4.jpg';
@@ -68,6 +68,10 @@ const values = [
           You'll find me in my private studio in north Edmonton — close to Anthony
           Henday Drive and 97 Street — open every day from 9 AM to 9 PM.
         </p>
+        <div class="btn-row about-intro__cta">
+          <a href={telHref} class="btn btn--primary">Book with Taz</a>
+          <a href={smsHref} class="btn btn--ghost">Text {business.phoneDisplay}</a>
+        </div>
       </div>
     </div>
   </section>
@@ -120,7 +124,10 @@ const values = [
           of their monthly routine — a standing hour that's theirs to unwind, reset, and
           take care of themselves.
         </p>
-        <a href="/services/" class="btn btn--primary">Explore the services</a>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Book your first visit</a>
+          <a href="/services/" class="btn btn--ghost">Explore the services</a>
+        </div>
       </div>
     </div>
   </section>
@@ -135,7 +142,8 @@ const values = [
     width: 100%; max-width: 340px; border-radius: var(--radius-lg);
     background: linear-gradient(160deg, var(--c-sand), rgba(176, 130, 74, 0.08));
   }
-  @media (max-width: 800px) { .about-intro { grid-template-columns: 1fr; text-align: center; } .about-intro .rule { margin-inline: auto; } .about-intro__img { max-width: 240px; } }
+  .about-intro__cta { margin-top: 1.6rem; }
+  @media (max-width: 800px) { .about-intro { grid-template-columns: 1fr; text-align: center; } .about-intro .rule { margin-inline: auto; } .about-intro__img { max-width: 240px; } .about-intro__cta { justify-content: center; } }
 
   .values-grid {
     display: grid;

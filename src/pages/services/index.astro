@@ -5,6 +5,7 @@ import ServiceCard from '../../components/ServiceCard.astro';
 import CtaBanner from '../../components/CtaBanner.astro';
 import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
 import { serviceCategories, servicesInCategory } from '../../data/services';
+import { business, telHref, smsHref } from '../../data/business';
 
 const title = "Men's Spa Services in North Edmonton — Massage, Skin & Grooming | Legacy Aesthetic";
 const description =
@@ -27,13 +28,20 @@ const categoryBlurbs: Record<string, string> = {
 
   <PageHeader
     eyebrow="Our Services"
-    title="Services for men"
-    subtitle="Massage, skin & body care, and grooming — choose one treatment or combine a few into your own reset. Same-day appointments are often available, 9 AM to 9 PM every day."
+    title="Your men's spa menu"
+    subtitle="Book a single treatment to start, or combine massage, skin care, and grooming into your own reset. Same-day appointments are often available — we're open 9 AM to 9 PM, every day."
     breadcrumbs={crumbs}
   />
 
   <section class="section">
     <div class="container">
+      <div class="services-book">
+        <p>Know what you want? Book in seconds. Not sure? Text us and we'll help you choose.</p>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Call {business.phoneDisplay}</a>
+          <a href={smsHref} class="btn btn--ghost">Text to book</a>
+        </div>
+      </div>
       {
         serviceCategories.map((cat) => (
           <div class="cat-block">
@@ -52,10 +60,17 @@ const categoryBlurbs: Record<string, string> = {
     </div>
   </section>
 
-  <CtaBanner />
+  <CtaBanner title="Ready to book your reset?" />
 </BaseLayout>
 
 <style>
+  .services-book {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+    flex-wrap: wrap; background: var(--c-sand); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.2rem 1.4rem; margin-bottom: 2.6rem;
+  }
+  .services-book p { color: var(--c-charcoal); font-weight: 500; margin: 0; }
+  .services-book .btn-row { flex-shrink: 0; }
   .cat-block + .cat-block { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
   .cat-head { margin-bottom: 1.6rem; }
   .cat-title { font-size: var(--fs-700); }

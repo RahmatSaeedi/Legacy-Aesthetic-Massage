@@ -32,7 +32,7 @@ const schema = {
   '@type': ['HealthAndBeautyBusiness', 'DaySpa'],
   '@id': businessId,
   name: business.name,
-  alternateName: business.shortName,
+  alternateName: [business.googleName, business.shortName],
   description: business.description,
   url: `${business.url}/`,
   telephone: business.phoneE164,

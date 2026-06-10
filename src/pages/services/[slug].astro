@@ -78,6 +78,17 @@ const others = servicesByOrder.filter((s) => s.slug !== service.slug);
       <article class="svc-main">
         {service.body.map((p) => <p>{p}</p>)}
 
+        <div class="inline-cta">
+          <div class="inline-cta__copy">
+            <strong>Ready to book your {service.name.toLowerCase()}?</strong>
+            <span>Call or text {business.phoneDisplay} — same-day appointments often available.</span>
+          </div>
+          <div class="inline-cta__btns">
+            <a href={telHref} class="btn btn--primary">Call now</a>
+            <a href={smsHref} class="btn btn--ghost">Text us</a>
+          </div>
+        </div>
+
         <h2>Benefits</h2>
         <ul class="check-list">
           {service.benefits.map((b) => <li>{b}</li>)}
@@ -171,6 +182,16 @@ const others = servicesByOrder.filter((s) => s.slug !== service.slug);
   .svc-main > p { margin-bottom: 1.1rem; font-size: 1.06rem; }
   .svc-main h2 { font-size: var(--fs-600); margin: 2.2rem 0 1rem; }
   .svc-main h2:first-of-type { margin-top: 1.6rem; }
+
+  .inline-cta {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; flex-wrap: wrap;
+    background: var(--c-sand); border: 1px solid var(--border); border-radius: var(--radius-lg);
+    padding: 1.3rem 1.4rem; margin: 1.8rem 0 0.5rem;
+  }
+  .inline-cta__copy { display: flex; flex-direction: column; }
+  .inline-cta__copy strong { font-family: var(--font-serif); font-size: 1.3rem; color: var(--c-espresso); line-height: 1.2; }
+  .inline-cta__copy span { color: var(--text-muted); font-size: 0.92rem; margin-top: 0.2rem; }
+  .inline-cta__btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
   .check-list { list-style: none; padding: 0; display: grid; gap: 0.7rem; }
   .check-list li { position: relative; padding-left: 1.9rem; color: var(--text-muted); }

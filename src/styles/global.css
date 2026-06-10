@@ -77,6 +77,9 @@ body {
 img, picture, svg, video { display: block; max-width: 100%; height: auto; }
 input, button, textarea, select { font: inherit; color: inherit; }
 
+/* Leave room for the fixed mobile call/text bar. */
+@media (max-width: 760px) { body { padding-bottom: 3.6rem; } }
+
 /* ---------- Typography ---------- */
 h1, h2, h3, h4 {
   font-family: var(--font-serif);

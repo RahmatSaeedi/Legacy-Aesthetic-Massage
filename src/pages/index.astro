@@ -9,6 +9,7 @@ import SchemaFaq from '../components/seo/SchemaFaq.astro';
 import { business, telHref, smsHref } from '../data/business';
 import { servicesByOrder } from '../data/services';
 import { generalFaqs } from '../data/faqs';
+import { aggregateRating } from '../data/testimonials';
 
 import heroImg from '../assets/images/Massage_3.jpg';
 import studioImg from '../assets/images/Massage_4.jpg';
@@ -16,7 +17,14 @@ import ownerImg from '../assets/images/Taz_Saeedi.png';
 
 const title = "Legacy Aesthetic Men's Spa — Massage & Grooming in North Edmonton";
 const description =
-  'A private men’s spa in north Edmonton offering relaxation & deep-tissue massage, body exfoliation, facials, waxing, cupping and haircuts. Open 9am–9pm daily. Call or text 587-712-0719.';
+  'A private men’s spa in north Edmonton offering relaxation & deep-tissue massage, body exfoliation, facials, waxing, cupping and haircuts. Open 9am–9pm daily. Call or text 587-712-0719 to book today.';
+
+const valueProps = [
+  { icon: '★', label: `${aggregateRating.ratingValue}-star rated`, sub: 'Loved by Edmonton' },
+  { icon: '⚡', label: 'Same-day booking', sub: 'Often available' },
+  { icon: '🔒', label: 'Private & discreet', sub: 'One-on-one studio' },
+  { icon: '🕘', label: 'Open 7 days', sub: '9am – 9pm daily' },
+];
 
 const features = [
   {
@@ -64,17 +72,36 @@ const features = [
       <h1 class="hero__title">Relax, unwind,<br />and feel your best.</h1>
       <p class="hero__sub">
         Massage, skin care, and grooming for men — in a warm, private studio in
-        north Edmonton. Same-day appointments, open 9&nbsp;AM to 9&nbsp;PM every day.
+        north Edmonton. Walk in tense, walk out recharged. Open 9&nbsp;AM to 9&nbsp;PM,
+        seven days a week.
       </p>
       <div class="btn-row">
-        <a href={telHref} class="btn btn--primary">Call {business.phoneDisplay}</a>
-        <a href={smsHref} class="btn btn--light">Text to book</a>
+        <a href={telHref} class="btn btn--primary btn--lg">Call {business.phoneDisplay}</a>
+        <a href={smsHref} class="btn btn--light btn--lg">Text to book</a>
       </div>
+      <p class="hero__reassure">Same-day appointments often available — booking takes 30 seconds.</p>
       <ul class="hero__badges">
-        <li><span class="stars" aria-hidden="true">★★★★★</span> Loved by Edmonton men</li>
+        <li><span class="stars" aria-hidden="true">★★★★★</span> Loved by Edmonton</li>
         <li>Private &amp; discreet</li>
         <li>Open daily · 9am–9pm</li>
       </ul>
+    </div>
+  </section>
+
+  <!-- VALUE STRIP -->
+  <section class="value-strip" aria-label="Why book with us">
+    <div class="container value-strip__inner">
+      {
+        valueProps.map((v) => (
+          <div class="value-prop">
+            <span class="value-prop__icon" aria-hidden="true">{v.icon}</span>
+            <span class="value-prop__text">
+              <strong>{v.label}</strong>
+              <small>{v.sub}</small>
+            </span>
+          </div>
+        ))
+      }
     </div>
   </section>
 
@@ -83,15 +110,21 @@ const features = [
     <div class="container welcome">
       <div class="section-head">
         <p class="eyebrow">Welcome to Legacy Aesthetic</p>
-        <h2>Premium grooming &amp; wellness, designed around you</h2>
+        <h2>Your hour to switch off and feel like yourself again</h2>
         <hr class="rule" />
       </div>
-      <p class="lead">
-        Step into a men's spa where relaxation meets refinement. From rejuvenating
-        massage and body treatments to expert grooming, every visit is meticulously
-        designed to leave you refreshed, renewed, and polished — all in one calm,
-        private place in north Edmonton.
-      </p>
+      <div class="welcome__body">
+        <p class="lead">
+          Step into a men's spa where relaxation meets refinement. From muscle-melting
+          massage and renewing body treatments to sharp, expert grooming, every visit
+          is built to leave you refreshed, recharged, and looking your best — all in one
+          calm, private place in north Edmonton.
+        </p>
+        <div class="btn-row">
+          <a href="/services/" class="btn btn--primary">Explore services</a>
+          <a href={telHref} class="btn btn--ghost">Call to book</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -103,12 +136,19 @@ const features = [
         <h2>Everything you need, all in one place</h2>
         <hr class="rule" />
         <p class="lead">
-          Massage, skin and body care, and men's grooming — choose a single treatment
-          or combine a few into your own reset.
+          Massage, skin and body care, and men's grooming — book a single treatment or
+          combine a few into your own reset. Tap any service to see details and pricing.
         </p>
       </div>
       <div class="services-grid">
         {servicesByOrder.map((s, i) => <ServiceCard service={s} eager={i < 3} />)}
+      </div>
+      <div class="services-cta">
+        <p>Not sure which is right for you?</p>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Call {business.phoneDisplay}</a>
+          <a href={smsHref} class="btn btn--ghost">Text us — we'll help you choose</a>
+        </div>
       </div>
     </div>
   </section>
@@ -141,6 +181,9 @@ const features = [
             </li>
           ))}
         </ul>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Book your visit</a>
+        </div>
       </div>
     </div>
   </section>
@@ -168,7 +211,10 @@ const features = [
           treatment is hands-on, unhurried, and tailored to you — whether you're here
           to release tension, refresh your skin, or simply switch off for an hour.
         </p>
-        <a href="/about/" class="btn btn--outline-light">More about Taz &amp; the studio</a>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Book with Taz</a>
+          <a href="/about/" class="btn btn--outline-light">More about the studio</a>
+        </div>
       </div>
     </div>
   </section>
@@ -178,12 +224,17 @@ const features = [
     <div class="container">
       <div class="section-head center">
         <p class="eyebrow">Reviews</p>
-        <h2>What our clients say</h2>
+        <h2>Loved by Edmonton</h2>
         <hr class="rule" />
+        <p class="lead">
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          Rated {aggregateRating.ratingValue} out of 5 by happy clients.
+        </p>
       </div>
       <Testimonials />
       <div class="reviews-cta">
         <a href="/reviews/" class="btn btn--ghost">Read more reviews</a>
+        <a href={telHref} class="btn btn--primary">Book your visit</a>
       </div>
     </div>
   </section>
@@ -197,6 +248,9 @@ const features = [
         <hr class="rule" />
       </div>
       <Faq faqs={generalFaqs} />
+      <p class="faq-cta">
+        Still have a question? <a href={telHref}>Call or text {business.phoneDisplay}</a> — happy to help.
+      </p>
     </div>
   </section>
 
@@ -205,7 +259,7 @@ const features = [
 
 <style>
   /* HERO */
-  .hero { position: relative; display: flex; align-items: center; min-height: min(82vh, 720px); overflow: hidden; }
+  .hero { position: relative; display: flex; align-items: center; min-height: min(84vh, 740px); overflow: hidden; }
   .hero__media { position: absolute; inset: 0; z-index: 0; }
   .hero__img { width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
   .hero__scrim {
@@ -215,24 +269,48 @@ const features = [
       linear-gradient(90deg, rgba(20, 14, 10, 0.82) 0%, rgba(20, 14, 10, 0.55) 45%, rgba(20, 14, 10, 0.2) 100%),
       linear-gradient(0deg, rgba(20, 14, 10, 0.5), rgba(20, 14, 10, 0) 40%);
   }
-  .hero__content { position: relative; z-index: 1; color: #fff; padding-block: 4rem; max-width: 44rem; }
+  .hero__content { position: relative; z-index: 1; color: #fff; padding-block: 4rem; max-width: 46rem; }
   .hero__eyebrow {
     font-size: 0.8rem; letter-spacing: 0.22em; text-transform: uppercase;
     font-weight: 600; color: var(--c-bronze-soft); margin-bottom: 1rem;
   }
   .hero__title { color: #fff; font-size: var(--fs-900); line-height: 1.05; }
-  .hero__sub { color: rgba(255, 255, 255, 0.88); font-size: var(--fs-500); margin-top: 1.1rem; max-width: 36rem; }
+  .hero__sub { color: rgba(255, 255, 255, 0.9); font-size: var(--fs-500); margin-top: 1.1rem; max-width: 38rem; }
   .hero .btn-row { margin-top: 1.8rem; }
+  .hero__reassure { color: rgba(255, 255, 255, 0.78); font-size: 0.9rem; margin-top: 0.9rem; }
   .hero__badges {
     display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; list-style: none; padding: 0;
-    margin-top: 2rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.82);
+    margin-top: 1.6rem; font-size: 0.85rem; color: rgba(255, 255, 255, 0.82);
   }
   .hero__badges li { display: inline-flex; align-items: center; gap: 0.4rem; }
-  .hero__badges .stars { color: var(--c-bronze-soft); letter-spacing: 0.08em; }
+  .stars { color: var(--c-bronze-soft); letter-spacing: 0.06em; }
+
+  .btn--lg { padding: 1.05rem 1.9rem; font-size: 1.02rem; }
+
+  /* VALUE STRIP */
+  .value-strip { background: var(--c-espresso); color: var(--c-cream); }
+  .value-strip__inner {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    padding-block: 1.4rem;
+  }
+  .value-prop { display: flex; align-items: center; gap: 0.7rem; justify-content: center; }
+  .value-prop__icon {
+    font-size: 1.1rem; color: var(--c-bronze-soft);
+    width: 2.3rem; height: 2.3rem; display: grid; place-items: center;
+    background: rgba(176, 130, 74, 0.16); border-radius: 50%; flex-shrink: 0;
+  }
+  .value-prop__text { display: flex; flex-direction: column; line-height: 1.2; }
+  .value-prop__text strong { color: #fff; font-size: 0.95rem; }
+  .value-prop__text small { color: rgba(250, 246, 240, 0.6); font-size: 0.78rem; }
+  @media (max-width: 760px) {
+    .value-strip__inner { grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .value-prop { justify-content: flex-start; }
+  }
 
   /* WELCOME */
   .welcome { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2.5rem; align-items: center; }
   .welcome .lead { color: var(--c-charcoal); }
+  .welcome__body .btn-row { margin-top: 1.5rem; }
   @media (max-width: 800px) { .welcome { grid-template-columns: 1fr; gap: 1.2rem; } }
 
   /* SERVICES */
@@ -242,6 +320,9 @@ const features = [
     gap: 1.6rem;
     margin-top: 2.5rem;
   }
+  .services-cta { text-align: center; margin-top: 2.6rem; }
+  .services-cta p { font-family: var(--font-serif); font-size: 1.5rem; color: var(--c-charcoal); margin-bottom: 1rem; }
+  .services-cta .btn-row { justify-content: center; }
 
   /* WHY */
   .why { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 3rem; align-items: center; }
@@ -254,6 +335,7 @@ const features = [
   }
   .feature__title { font-size: 1.3rem; margin-bottom: 0.15rem; }
   .feature__text { font-size: 0.95rem; }
+  .why__copy .btn-row { margin-top: 1.8rem; }
   @media (max-width: 860px) { .why { grid-template-columns: 1fr; gap: 1.8rem; } }
 
   /* MEET */
@@ -264,8 +346,13 @@ const features = [
     background: linear-gradient(160deg, rgba(176, 130, 74, 0.25), rgba(176, 130, 74, 0.05));
   }
   .meet__copy { max-width: 40rem; }
-  @media (max-width: 760px) { .meet { grid-template-columns: 1fr; text-align: center; } .meet .rule { margin-inline: auto; } .meet__img { max-width: 220px; } }
+  .meet__copy .btn-row { margin-top: 1.6rem; }
+  @media (max-width: 760px) { .meet { grid-template-columns: 1fr; text-align: center; } .meet .rule { margin-inline: auto; } .meet__img { max-width: 220px; } .meet__copy .btn-row { justify-content: center; } }
 
   /* REVIEWS */
-  .reviews-cta { text-align: center; margin-top: 2.2rem; }
+  .reviews-cta { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin-top: 2.2rem; }
+
+  /* FAQ */
+  .faq-cta { text-align: center; margin-top: 1.8rem; color: var(--text-muted); }
+  .faq-cta a { font-weight: 600; }
 </style>

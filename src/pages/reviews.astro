@@ -4,7 +4,7 @@ import PageHeader from '../components/PageHeader.astro';
 import Testimonials from '../components/Testimonials.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import SchemaBreadcrumb from '../components/seo/SchemaBreadcrumb.astro';
-import { business } from '../data/business';
+import { business, telHref, smsHref } from '../data/business';
 import { testimonials, aggregateRating } from '../data/testimonials';
 
 const title = "Reviews — Legacy Aesthetic Men's Spa, Edmonton";
@@ -41,8 +41,8 @@ const googleReviewUrl = business.mapsUrl;
 
   <PageHeader
     eyebrow="Reviews"
-    title="Loved by Edmonton men"
-    subtitle="Honest words from clients who've made Legacy Aesthetic part of their routine."
+    title="Loved by Edmonton"
+    subtitle="Honest words from clients who've made Legacy Aesthetic part of their routine. Ready to join them? Call or text 587-712-0719."
     breadcrumbs={crumbs}
   />
 
@@ -58,6 +58,14 @@ const googleReviewUrl = business.mapsUrl;
 
       <Testimonials />
 
+      <div class="reviews-book">
+        <p>These are real clients who keep coming back. Ready to join them?</p>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Book your visit</a>
+          <a href={smsHref} class="btn btn--ghost">Text {business.phoneDisplay}</a>
+        </div>
+      </div>
+
       <div class="review-invite">
         <h2>Enjoyed your visit?</h2>
         <p>
@@ -72,7 +80,7 @@ const googleReviewUrl = business.mapsUrl;
     </div>
   </section>
 
-  <CtaBanner />
+  <CtaBanner title="Join them — book your visit" />
 </BaseLayout>
 
 <style>
@@ -83,6 +91,10 @@ const googleReviewUrl = business.mapsUrl;
   .rating-summary__stars { color: var(--c-bronze); font-size: 1.5rem; letter-spacing: 0.1em; }
   .rating-summary p { color: var(--text-muted); }
   .rating-summary strong { color: var(--c-espresso); }
+
+  .reviews-book { text-align: center; margin-top: 2.6rem; }
+  .reviews-book p { font-family: var(--font-serif); font-size: 1.4rem; color: var(--c-charcoal); margin-bottom: 1rem; }
+  .reviews-book .btn-row { justify-content: center; }
 
   .review-invite {
     margin-top: 3rem; text-align: center; max-width: 40rem; margin-inline: auto;
