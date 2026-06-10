@@ -95,6 +95,8 @@ const navLinks = [
         <a href={smsHref} class="btn btn--ghost">Text us</a>
       </div>
     </nav>
+
+    <div class="nav-backdrop" data-nav-backdrop></div>
   </div>
 </header>
 
@@ -103,8 +105,9 @@ const navLinks = [
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(250, 246, 240, 0.92);
-    backdrop-filter: saturate(140%) blur(8px);
+    /* NOTE: do not add backdrop-filter/filter/transform here — it would create a
+       containing block that traps the fixed mobile menu panel inside the header. */
+    background: var(--c-cream);
     border-bottom: 1px solid var(--border);
     transition: box-shadow 0.25s ease;
   }
@@ -185,6 +188,18 @@ const navLinks = [
 
   /* Dropdown */
   .has-dropdown { position: relative; }
+  /* Transparent hover bridge across the 6px gap so the dropdown doesn't close
+     as the cursor moves from the link down to a service (desktop only). */
+  @media (min-width: 921px) {
+    .has-dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 12px;
+    }
+  }
   .dropdown {
     position: absolute;
     top: calc(100% + 6px);
@@ -301,11 +316,8 @@ const navLinks = [
     transition: opacity 0.25s ease, visibility 0.25s;
     z-index: 110;
   }
-  [data-header].is-open ~ .nav-backdrop,
   [data-header].is-open .nav-backdrop { opacity: 1; visibility: visible; }
 </style>
-
-<div class="nav-backdrop" data-nav-backdrop></div>
 
 <script>
   const header = document.querySelector('[data-header]');
