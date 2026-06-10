@@ -17,9 +17,8 @@ services:
     image: cloudflare/cloudflared:latest
     container_name: legacy-qa-tunnel
     restart: unless-stopped
-    command: tunnel --no-autoupdate run
-    environment:
-      # Provided via the .env file in this folder.
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    # Token is passed on the command line (the reliable form). It's read from the
+    # .env file in this folder; compose fails fast with a clear message if unset.
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN:?Set TUNNEL_TOKEN in .env — copy .env.example to .env and paste your Cloudflare tunnel token}
     depends_on:
       - web

@@ -145,6 +145,23 @@ pct stop 910 && pct destroy 910
 
 ---
 
+## Troubleshooting
+
+**`"cloudflared tunnel run" requires the ID or name of the tunnel ...`**
+The tunnel didn't get a token. Check:
+
+1. `.env` exists in this folder and has the token on one line:
+   `cat .env` → should print `TUNNEL_TOKEN=eyJ...` (no quotes, no spaces).
+   If missing: `cp .env.example .env && nano .env`.
+2. The `cloudflared` `command` in `docker-compose.yml` passes the token:
+   `command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}`
+3. Re-run: `docker compose up -d` then `docker compose logs -f cloudflared`
+   (look for `Registered tunnel connection`).
+
+**Tunnel up but the page 502s** — the public hostname's service must be
+`http://web:80` (the nginx service name), and `docker compose ps` should show
+`legacy-qa-web` running.
+
 ## Notes
 
 - **Not indexed:** nginx sends `X-Robots-Tag: noindex` and serves a
