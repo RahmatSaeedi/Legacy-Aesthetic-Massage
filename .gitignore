@@ -1,5 +1,10 @@
 # build output
 dist/
+# QA bundle build artifacts (config in qa/ is tracked; the built copy is not)
+qa/site/
+qa/.env
+qa/.stage/
+*.tar.gz
 # generated types
 .astro/
 # dependencies
