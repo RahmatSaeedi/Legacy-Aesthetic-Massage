@@ -29,7 +29,7 @@ There's a brief moment of sensation as each strip is removed — honest answer. 
 
 ## After your wax
 
-Avoid hot showers, heavy sweating, and tight clothing for 24 hours, and keep the skin moisturized. Exfoliating gently a few days later helps prevent ingrown hairs.
+Avoid hot showers, heavy sweating, and friction for 24 hours, and keep the skin moisturized. Exfoliating gently a few days later helps prevent ingrown hairs.
 
 ## What does it cost?
 

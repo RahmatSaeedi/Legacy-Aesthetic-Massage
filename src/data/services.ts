@@ -88,8 +88,8 @@ export const services: Service[] = [
         a: 'The standard session is a full 60 minutes at $99. Let us know if you would like to focus on a particular area such as the back, shoulders, or legs.',
       },
       {
-        q: 'What should I wear?',
-        a: 'You will be professionally draped throughout for full privacy and comfort. You may keep your underwear on — wear whatever lets you relax completely.',
+        q: 'Is this massage relaxing or firm?',
+        a: 'It’s a gentle, relaxing massage focused on calm and deep hydration rather than firm pressure. If you’d prefer deeper work, ask about our deep-tissue massage.',
       },
       {
         q: 'How often should I come?',
@@ -186,7 +186,7 @@ export const services: Service[] = [
     body: [
       'A full-body exfoliation massage combines gentle, mineral-rich scrubs with soothing massage technique. As dead surface cells are polished away, circulation is stimulated and skin renewal accelerates — encouraging collagen production for firmer, more youthful, more elastic skin.',
       'It is the ideal treatment before a special occasion, after a long winter of dry skin, or simply when your skin needs a fresh start. You will feel — and see — the difference immediately: noticeably smoother, brighter, and softer from shoulders to feet.',
-      'Your privacy and comfort are always assured. You remain professionally draped throughout, and you are welcome to keep your underwear on.',
+      'Your comfort and privacy are always assured throughout the treatment.',
     ],
     benefits: [
       'Removes dull, dead, and flaky skin cells',
@@ -196,7 +196,7 @@ export const services: Service[] = [
       'Leaves skin silky-soft and deeply moisturized',
     ],
     process: [
-      { step: 'Relax', text: 'Settle in on a warm table with full privacy assured — underwear can be worn.' },
+      { step: 'Relax', text: 'Settle in on a warm, comfortable table with your privacy assured.' },
       { step: 'Exfoliate', text: 'Your aesthetician massages a mineral-rich scrub across the body to lift away dull, dead skin.' },
       { step: 'Rinse', text: 'The exfoliant is gently rinsed away, revealing fresh, renewed skin.' },
       { step: 'Moisturize', text: 'A nourishing lotion or oil is massaged in for silky-smooth, hydrated results.' },

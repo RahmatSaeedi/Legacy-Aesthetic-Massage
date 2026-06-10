@@ -27,6 +27,6 @@ export const generalFaqs: Faq[] = [
   },
   {
     q: 'Is the studio private?',
-    a: 'Absolutely. Treatments take place one-on-one in a calm, private room, and you are professionally draped throughout for your comfort and privacy.',
+    a: 'Absolutely. Treatments take place one-on-one in a calm, private room, with your comfort and privacy assured throughout.',
   },
 ];

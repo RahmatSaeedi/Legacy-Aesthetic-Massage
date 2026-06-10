@@ -16,7 +16,7 @@ It also stimulates circulation and encourages collagen production, which keeps s
 
 ## The four simple steps
 
-1. **Relax.** You settle onto a warm table with full privacy assured — you're professionally draped throughout and can keep your underwear on.
+1. **Relax.** You settle onto a warm table with your comfort and privacy assured throughout.
 2. **Exfoliate.** Your aesthetician massages the scrub across the body, sloughing away dead skin.
 3. **Rinse.** The exfoliant is gently rinsed away to reveal fresh skin.
 4. **Moisturize.** A nourishing lotion or oil is massaged in, leaving you silky-smooth and hydrated.
