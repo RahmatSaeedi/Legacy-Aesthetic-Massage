@@ -1,0 +1,48 @@
+---
+import { business, telHref, smsHref } from '../data/business';
+
+interface Props {
+  title?: string;
+  text?: string;
+}
+const { title = 'Ready to relax & unwind?', text } = Astro.props;
+const body =
+  text ??
+  `Call or text ${business.phoneDisplay} — we're open ${business.hours.display}, and same-day appointments are often available.`;
+---
+
+<section class="cta-banner">
+  <div class="container cta-banner__inner">
+    <div class="cta-banner__copy">
+      <p class="eyebrow">Book your visit</p>
+      <h2>{title}</h2>
+      <p class="cta-banner__text">{body}</p>
+    </div>
+    <div class="cta-banner__actions">
+      <a href={telHref} class="btn btn--light">Call {business.phoneDisplay}</a>
+      <a href={smsHref} class="btn btn--outline-light">Text us</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-banner {
+    background:
+      linear-gradient(135deg, rgba(42, 33, 27, 0.92), rgba(60, 48, 42, 0.92)),
+      radial-gradient(circle at 80% 20%, rgba(176, 130, 74, 0.45), transparent 55%);
+    color: var(--c-cream);
+  }
+  .cta-banner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding-block: clamp(2.5rem, 1.5rem + 4vw, 4rem);
+  }
+  .cta-banner__copy { max-width: 38rem; }
+  .cta-banner h2 { color: #fff; }
+  .cta-banner__text { color: rgba(250, 246, 240, 0.82); margin-top: 0.6rem; }
+  .cta-banner .eyebrow { color: var(--c-bronze-soft); }
+  .cta-banner__actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+</style>

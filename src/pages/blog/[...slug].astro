@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
+import { business } from '../../data/business';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const url = `/blog/${post.id}/`;
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Journal', href: '/blog/' },
+  { name: post.data.title, href: url },
+];
+
+const site = Astro.site ?? new URL(business.url);
+const businessId = new URL('#business', site).href;
+const ogImage = post.data.heroImage?.src;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' });
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  ...(ogImage ? { image: new URL(ogImage, site).href } : {}),
+  author: { '@type': 'Person', name: business.owner.name },
+  publisher: { '@id': businessId },
+  mainEntityOfPage: new URL(url, site).href,
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} | Legacy Aesthetic`}
+  description={post.data.description}
+  type="article"
+  image={ogImage}
+>
+  <SchemaBreadcrumb slot="head" items={crumbs} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(articleSchema)} is:inline />
+
+  <article>
+    <header class="article-head">
+      <div class="container container-narrow">
+        <Breadcrumbs items={crumbs} />
+        <p class="article-date">
+          <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+        </p>
+        <h1>{post.data.title}</h1>
+        <p class="lead">{post.data.description}</p>
+      </div>
+    </header>
+
+    {
+      post.data.heroImage && (
+        <div class="container container-narrow article-hero">
+          <Image
+            src={post.data.heroImage}
+            alt={post.data.heroAlt ?? post.data.title}
+            widths={[480, 768, 1024]}
+            sizes="(max-width: 760px) 92vw, 720px"
+            class="article-hero__img"
+            loading="eager"
+          />
+        </div>
+      )
+    }
+
+    <div class="section article-body">
+      <div class="container container-narrow prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+
+  <CtaBanner />
+</BaseLayout>
+
+<style>
+  .article-head { background: var(--c-sand); border-bottom: 1px solid var(--border); padding-block: clamp(2rem, 1.4rem + 3vw, 3.2rem); }
+  .article-date { margin: 1rem 0 0.4rem; font-size: 0.85rem; color: var(--c-stone); text-transform: uppercase; letter-spacing: 0.06em; }
+  .article-hero { margin-top: -2.5rem; margin-bottom: -1rem; position: relative; z-index: 1; }
+  .article-hero__img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); aspect-ratio: 16 / 9; object-fit: cover; }
+  .article-body { padding-top: 3rem; }
+</style>

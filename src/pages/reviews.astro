@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import SchemaBreadcrumb from '../components/seo/SchemaBreadcrumb.astro';
+import { business, telHref, smsHref } from '../data/business';
+import { testimonials, aggregateRating } from '../data/testimonials';
+
+const title = "Reviews — Legacy Aesthetic Men's Spa, Edmonton";
+const description =
+  "Read what Edmonton men say about Legacy Aesthetic — relaxing massage, expert skin care, and grooming in a warm, private studio. Rated 5 stars. Call or text 587-712-0719.";
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Reviews', href: '/reviews/' },
+];
+
+const site = Astro.site ?? new URL(business.url);
+const businessId = new URL('#business', site).href;
+
+// Review JSON-LD (kept on the dedicated reviews page).
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@graph': testimonials.map((t) => ({
+    '@type': 'Review',
+    itemReviewed: { '@type': 'LocalBusiness', '@id': businessId, name: business.name },
+    author: { '@type': 'Person', name: t.author },
+    reviewRating: { '@type': 'Rating', ratingValue: t.rating, bestRating: 5 },
+    reviewBody: t.quote,
+  })),
+};
+
+// TODO: replace with your Google Business Profile "write a review" short link.
+const googleReviewUrl = "https://maps.google.com/?q=Massage+and+more+Legacy+Aesthetics+Edmonton";
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaBreadcrumb slot="head" items={crumbs} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(reviewSchema)} is:inline />
+
+  <PageHeader
+    eyebrow="Reviews"
+    title="Loved by Edmonton"
+    subtitle="Honest words from clients who've made Legacy Aesthetic part of their routine. Ready to join them? Call or text 587-712-0719."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="rating-summary">
+        <span class="rating-summary__stars" aria-hidden="true">★★★★★</span>
+        <p>
+          <strong>{aggregateRating.ratingValue} out of 5</strong>
+          · based on {aggregateRating.reviewCount} client reviews
+        </p>
+      </div>
+
+      <Testimonials />
+
+      <div class="reviews-book">
+        <p>These are real clients who keep coming back. Ready to join them?</p>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Book your visit</a>
+          <a href={smsHref} class="btn btn--ghost">Text {business.phoneDisplay}</a>
+        </div>
+      </div>
+
+      <div class="review-invite">
+        <h2>Enjoyed your visit?</h2>
+        <p>
+          A quick review genuinely helps other men in Edmonton find us — and it means
+          the world. Thank you for taking a moment.
+        </p>
+        <div class="btn-row">
+          <a href={googleReviewUrl} class="btn btn--primary" rel="noopener" target="_blank">Review us on Google</a>
+          <a href={business.social.facebook} class="btn btn--ghost" rel="noopener" target="_blank">Review on Facebook</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBanner title="Join them — book your visit" />
+</BaseLayout>
+
+<style>
+  .rating-summary {
+    display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap;
+    justify-content: center; text-align: center; margin-bottom: 2.5rem;
+  }
+  .rating-summary__stars { color: var(--c-bronze); font-size: 1.5rem; letter-spacing: 0.1em; }
+  .rating-summary p { color: var(--text-muted); }
+  .rating-summary strong { color: var(--c-espresso); }
+
+  .reviews-book { text-align: center; margin-top: 2.6rem; }
+  .reviews-book p { font-family: var(--font-serif); font-size: 1.4rem; color: var(--c-charcoal); margin-bottom: 1rem; }
+  .reviews-book .btn-row { justify-content: center; }
+
+  .review-invite {
+    margin-top: 3rem; text-align: center; max-width: 40rem; margin-inline: auto;
+    background: var(--c-sand); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 2.2rem 1.5rem;
+  }
+  .review-invite h2 { font-size: var(--fs-600); }
+  .review-invite p { margin: 0.6rem 0 1.4rem; }
+  .review-invite .btn-row { justify-content: center; }
+</style>

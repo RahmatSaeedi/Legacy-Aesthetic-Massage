@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import SchemaBreadcrumb from '../../components/seo/SchemaBreadcrumb.astro';
+import { serviceCategories, servicesInCategory } from '../../data/services';
+import { business, telHref, smsHref } from '../../data/business';
+
+const title = "Men's Spa Services in North Edmonton — Massage, Skin & Grooming | Legacy Aesthetic";
+const description =
+  "Explore Legacy Aesthetic's men's services in north Edmonton: relaxation & deep-tissue massage, full-body exfoliation, facials, waxing, cupping, acne care, dark-patch treatment and haircuts. Call or text 587-712-0719.";
+
+const crumbs = [
+  { name: 'Home', href: '/' },
+  { name: 'Services', href: '/services/' },
+];
+
+const categoryBlurbs: Record<string, string> = {
+  Massage: 'Relaxation and therapeutic bodywork to release tension and reset.',
+  'Skin & Body': 'Treatments that renew, clarify, and care for your skin head to toe.',
+  Grooming: 'Sharp, clean grooming to keep you looking your best.',
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <SchemaBreadcrumb slot="head" items={crumbs} />
+
+  <PageHeader
+    eyebrow="Our Services"
+    title="Your men's spa menu"
+    subtitle="Book a single treatment to start, or combine massage, skin care, and grooming into your own reset. Same-day appointments are often available — we're open 9 AM to 9 PM, every day."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="services-book">
+        <p>Know what you want? Book in seconds. Not sure? Text us and we'll help you choose.</p>
+        <div class="btn-row">
+          <a href={telHref} class="btn btn--primary">Call {business.phoneDisplay}</a>
+          <a href={smsHref} class="btn btn--ghost">Text to book</a>
+        </div>
+      </div>
+      {
+        serviceCategories.map((cat) => (
+          <div class="cat-block">
+            <div class="cat-head">
+              <h2 class="cat-title">{cat}</h2>
+              <p class="cat-blurb">{categoryBlurbs[cat]}</p>
+            </div>
+            <div class="services-grid">
+              {servicesInCategory(cat).map((s) => (
+                <ServiceCard service={s} />
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBanner title="Ready to book your reset?" />
+</BaseLayout>
+
+<style>
+  .services-book {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+    flex-wrap: wrap; background: var(--c-sand); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 1.2rem 1.4rem; margin-bottom: 2.6rem;
+  }
+  .services-book p { color: var(--c-charcoal); font-weight: 500; margin: 0; }
+  .services-book .btn-row { flex-shrink: 0; }
+  .cat-block + .cat-block { margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem); }
+  .cat-head { margin-bottom: 1.6rem; }
+  .cat-title { font-size: var(--fs-700); }
+  .cat-blurb { color: var(--text-muted); margin-top: 0.3rem; }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: 1.6rem;
+  }
+</style>

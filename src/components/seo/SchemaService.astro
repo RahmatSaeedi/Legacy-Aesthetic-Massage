@@ -1,0 +1,40 @@
+---
+/** Per-service-page Service + Offer JSON-LD, linked to the LocalBusiness node. */
+import { business } from '../../data/business';
+import type { Service } from '../../data/services';
+
+interface Props {
+  service: Service;
+}
+const { service } = Astro.props;
+
+const site = Astro.site ?? new URL(business.url);
+const businessId = new URL('#business', site).href;
+const pageURL = new URL(`/services/${service.slug}/`, site).href;
+const imageURL = new URL(service.image.src, site).href;
+
+const num = service.price.match(/\d+/);
+const offer: Record<string, unknown> = {
+  '@type': 'Offer',
+  url: pageURL,
+  availability: 'https://schema.org/InStock',
+  ...(num ? { price: num[0], priceCurrency: business.currency } : {}),
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${pageURL}#service`,
+  name: service.title,
+  serviceType: service.name,
+  description: service.summary,
+  url: pageURL,
+  image: imageURL,
+  category: service.category,
+  areaServed: business.areaServed.map((name) => ({ '@type': 'City', name })),
+  provider: { '@id': businessId },
+  offers: offer,
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />

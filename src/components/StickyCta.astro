@@ -1,0 +1,43 @@
+---
+/** Always-visible call/text bar on mobile, where the sticky header CTA is hidden. */
+import { business, telHref, smsHref } from '../data/business';
+---
+
+<div class="sticky-cta" role="region" aria-label="Quick booking">
+  <a href={telHref} class="sticky-cta__btn sticky-cta__btn--call">
+    <span aria-hidden="true">📞</span> Call now
+  </a>
+  <a href={smsHref} class="sticky-cta__btn sticky-cta__btn--text">
+    <span aria-hidden="true">💬</span> Text to book
+  </a>
+</div>
+
+<style>
+  .sticky-cta { display: none; }
+
+  @media (max-width: 760px) {
+    .sticky-cta {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 95;
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      box-shadow: 0 -6px 20px rgba(42, 33, 27, 0.22);
+    }
+    .sticky-cta__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.95rem 0.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      color: #fff;
+    }
+    .sticky-cta__btn--call { background: var(--c-espresso); }
+    .sticky-cta__btn--text { background: var(--c-bronze); }
+  }
+</style>

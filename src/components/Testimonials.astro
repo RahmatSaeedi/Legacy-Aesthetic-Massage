@@ -1,0 +1,58 @@
+---
+import { testimonials } from '../data/testimonials';
+
+interface Props {
+  limit?: number;
+}
+const { limit } = Astro.props;
+const items = limit ? testimonials.slice(0, limit) : testimonials;
+---
+
+<div class="testimonials">
+  {
+    items.map((t) => (
+      <figure class="t-card">
+        <div class="t-stars" role="img" aria-label={`${t.rating} out of 5 stars`}>
+          {'★'.repeat(t.rating)}
+        </div>
+        <blockquote class="t-quote">{t.quote}</blockquote>
+        <figcaption class="t-author">
+          <strong>{t.author}</strong>
+          {t.context && <span class="t-context"> · {t.context}</span>}
+        </figcaption>
+      </figure>
+    ))
+  }
+</div>
+
+<style>
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: 1.5rem;
+  }
+  .t-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 1.6rem 1.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .t-stars { color: var(--c-bronze); letter-spacing: 0.15em; font-size: 1.05rem; }
+  .t-quote {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.28rem;
+    line-height: 1.45;
+    color: var(--c-charcoal);
+  }
+  .t-quote::before { content: '\201C'; }
+  .t-quote::after { content: '\201D'; }
+  .t-author { font-size: 0.92rem; color: var(--text-muted); margin-top: auto; }
+  .t-author strong { color: var(--c-espresso); }
+  .t-context { color: var(--c-stone); }
+</style>
