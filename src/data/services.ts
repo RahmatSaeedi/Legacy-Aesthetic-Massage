@@ -52,7 +52,11 @@ export const services: Service[] = [
     name: 'Skin-Moisturizing Massage',
     title: 'Relaxation & Skin-Moisturizing Massage',
     category: 'Massage',
+<<<<<<< HEAD
     price: '$110',
+=======
+    price: '$99',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     priceNote: 'per hour',
     duration: '60 min',
     image: imgSkinMoisturizing,
@@ -62,7 +66,11 @@ export const services: Service[] = [
       'A soothing full-body massage with nourishing oils that melts away tension while deeply hydrating the skin.',
     metaTitle: 'Skin-Moisturizing Massage for Men — North Edmonton | Legacy Aesthetic',
     metaDescription:
+<<<<<<< HEAD
       'Unwind with a relaxing skin-moisturizing massage at Legacy Aesthetic men’s spa in north Edmonton. Nourishing oils, soothing technique, hydrated skin — $110/hr. Call or text 587-712-0719.',
+=======
+      'Unwind with a relaxing skin-moisturizing massage at Legacy Aesthetic men’s spa in north Edmonton. Nourishing oils, soothing technique, hydrated skin — $99/hr. Call or text 587-712-0719.',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     intro:
       'Our signature relaxation massage pairs slow, soothing strokes with rich, skin-nourishing oils — so you leave with a calm mind and softer, deeply hydrated skin.',
     body: [
@@ -85,7 +93,11 @@ export const services: Service[] = [
     faqs: [
       {
         q: 'How long is a skin-moisturizing massage?',
+<<<<<<< HEAD
         a: 'The standard session is a full 60 minutes at $110. Let us know if you would like to focus on a particular area such as the back, shoulders, or legs.',
+=======
+        a: 'The standard session is a full 60 minutes at $99. Let us know if you would like to focus on a particular area such as the back, shoulders, or legs.',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
       },
       {
         q: 'Is this massage relaxing or firm?',
@@ -170,7 +182,12 @@ export const services: Service[] = [
     name: 'Full-Body Exfoliation',
     title: 'Full-Body Exfoliation Massage (Body Scrub)',
     category: 'Skin & Body',
+<<<<<<< HEAD
     price: '$170',
+=======
+    price: '$150',
+    priceNote: 'per hour',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     duration: '60 min',
     image: imgExfoliation,
     imageAlt:
@@ -179,7 +196,11 @@ export const services: Service[] = [
       'A luxurious body scrub that sloughs away dull, dead skin to reveal smoother, brighter, healthier skin underneath.',
     metaTitle: 'Full-Body Exfoliation & Body Scrub for Men — Edmonton | Legacy Aesthetic',
     metaDescription:
+<<<<<<< HEAD
       'Reveal smoother, brighter skin with a full-body exfoliation massage and body scrub in north Edmonton. Removes dull, dead skin and boosts collagen. $170. Text 587-712-0719.',
+=======
+      'Reveal smoother, brighter skin with a full-body exfoliation massage and body scrub in north Edmonton. Removes dull, dead skin and boosts collagen. $150/hr. Text 587-712-0719.',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     intro:
       'Also known as a body scrub, this indulgent treatment buffs away old, dull skin cells to uncover the soft, healthy, glowing skin underneath.',
     body: [
@@ -229,7 +250,11 @@ export const services: Service[] = [
     name: 'Anti-Aging Facial',
     title: "Men's Anti-Aging Facial",
     category: 'Skin & Body',
+<<<<<<< HEAD
     price: '$150',
+=======
+    price: '$120',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     duration: '60 min',
     image: imgFacial,
     imageAlt:
@@ -238,7 +263,11 @@ export const services: Service[] = [
       'A targeted facial that smooths fine lines, boosts collagen, and leaves skin firmer, hydrated, and refreshed.',
     metaTitle: "Men's Anti-Aging Facial — North Edmonton | Legacy Aesthetic",
     metaDescription:
+<<<<<<< HEAD
       'A men’s anti-aging facial in north Edmonton that softens fine lines, boosts collagen, and restores firm, hydrated skin. Tailored to men’s skin. $150. Call or text 587-712-0719.',
+=======
+      'A men’s anti-aging facial in north Edmonton that softens fine lines, boosts collagen, and restores firm, hydrated skin. Tailored to men’s skin. $120. Call or text 587-712-0719.',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     intro:
       'A specialized facial designed to combat the visible signs of aging and rejuvenate tired skin — leaving your complexion firmer, smoother, and refreshed.',
     body: [
@@ -345,7 +374,11 @@ export const services: Service[] = [
     name: "Men's Haircut",
     title: "Men's Haircut & Styling",
     category: 'Grooming',
+<<<<<<< HEAD
     price: '$55',
+=======
+    price: '$40',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     duration: '45 min',
     image: imgHaircut,
     imageAlt:
@@ -354,7 +387,11 @@ export const services: Service[] = [
       'Sharp, tailored cuts — classic or contemporary — finished in a relaxed, unhurried setting.',
     metaTitle: "Men's Haircut & Styling — North Edmonton | Legacy Aesthetic",
     metaDescription:
+<<<<<<< HEAD
       'A precise men’s haircut tailored to your look — classic or contemporary — in a calm, private north Edmonton studio. Sharp, clean results. $55. Call or text 587-712-0719.',
+=======
+      'A precise men’s haircut tailored to your look — classic or contemporary — in a calm, private north Edmonton studio. Sharp, clean results. $40. Call or text 587-712-0719.',
+>>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
     intro:
       'Discover the precision and style of a men’s haircut tailored to your look — sharp, clean results delivered in a relaxed, unhurried setting.',
     body: [
