@@ -45,11 +45,7 @@ export const business = {
    * TODO before launch: replace with the exact lat/lng from your Google
    * Business Profile so the map pin and schema are pixel-accurate.
    */
-<<<<<<< HEAD
   geo: { lat: 53.6336, lng: -113.515 },
-=======
-  geo: { lat: 53.643258907680874, lng: -113.51041741993946 },
->>>>>>> 2ea103459bfc9c28674531889766d1d6780e7523
 
   // Communities to surface in copy + schema areaServed (local SEO reach).
   areaServed: [
